@@ -1,0 +1,21 @@
+{
+    "Version":"2012-10-17",
+    "Statement":[{
+        "Effect": "Allow",
+        "Principal": {"Service":"s3.amazonaws.com"},
+         "Action": [
+            "SNS:GetTopicAttributes",
+            "SNS:SetTopicAttributes",
+            "SNS:AddPermission",
+            "SNS:RemovePermission",
+            "SNS:DeleteTopic",
+            "SNS:Subscribe",
+            "SNS:ListSubscriptionsByTopic",
+            "SNS:Publish"
+            ],
+        "Resource": "*",
+        "Condition":{
+            "ArnLike": { "aws:SourceArn": "${bucket_arn}" }
+        }
+    }]
+}
