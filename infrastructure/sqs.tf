@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "sqs_queue" {
-  name                      = "sqs-lob-serverless"
+  name                      = var.sqs_name
   delay_seconds             = 90
   max_message_size          = 2048
   message_retention_seconds = 86400
@@ -15,7 +15,7 @@ resource "aws_sqs_queue" "sqs_queue" {
 }
 
 resource "aws_sqs_queue" "dead_letters_queue" {
-  name                      = "dead-letters-queue-lob"
+  name                      = "dead-letters-${var.sqs_name}"
   receive_wait_time_seconds = 20
 }
 resource "aws_sqs_queue_policy" "queue_policy" {
