@@ -20,3 +20,18 @@ data "template_file" "policy_sns_json_s3_event" {
   }
 }
 
+data "template_file" "policy_lambda_json" {
+  template = file("${path.module}/roles_and_policies/lambda_policy.json.tmpl")
+  vars = {
+    bucket_arn = aws_s3_bucket.raw.arn
+    sqs_arn    = aws_sqs_queue.sqs_queue.arn
+  }
+}
+
+data "archive_file" "zip_code_lambda" {
+  type = "zip"
+  output_path = "code_lambda.zip"
+  source_file = "${path.module}/../lambda_code/src/main.py"
+}
+
+
